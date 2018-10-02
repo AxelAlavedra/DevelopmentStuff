@@ -28,8 +28,14 @@ public:
 		}
 	}
 	String(const String& str) {
-		Allocate(str.length);
-		Copy(str.string);
+		if (str.GetString() != nullptr) {
+			Allocate(str.length);
+			Copy(str.string);
+		}
+		else {
+			Allocate(1);
+		}
+
 	}
 
 	char* GetString() const {
