@@ -20,7 +20,7 @@ public:
 	}
 	String(const char* str) {
 		if (str != nullptr) {
-			Allocate(CalculateLength(str)+1);
+			Allocate(CalculateLength(str));
 			Copy(str);
 		}
 		else {
@@ -38,12 +38,19 @@ public:
 	unsigned int CalculateLength(const char* str) const {
 		unsigned int str_length;
 		for (str_length = 0; str[str_length] != '\0'; str_length++);
+		str_length++; //space for \0 char
 		return str_length;
 	}
 	String& operator= (const char* str)
 	{
 		Allocate(CalculateLength(str) + 1);
 		Copy(str);
+		return *this;
+	}
+	String& operator= (const String& str)
+	{
+		Allocate(CalculateLength(str.GetString()));
+		Copy(str.GetString());
 		return *this;
 	}
 };
